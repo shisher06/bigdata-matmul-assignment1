@@ -1,0 +1,42 @@
+{
+  "timestamp_utc": "2026-10-14T16:56:30+00:00",
+  "gcc": {
+    "path": "C:\\MinGW\\bin\\gcc.EXE",
+    "version": "gcc.EXE (GCC) 11.2.0",
+    "target": "x86_64-w64-mingw32"
+  },
+  "javac": {
+    "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.20.101-hotspot\\bin\\javac.EXE",
+    "version": "javac 17.0.20.1"
+  },
+  "java": {
+    "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.20.101-hotspot\\bin\\java.EXE",
+    "version": [
+      "openjdk version \"17.0.20.1\" 2026-08-18",
+      "OpenJDK Runtime Environment Temurin-17.0.20.1+1 (build 17.0.20.1+1)",
+      "OpenJDK 64-Bit Server VM Temurin-17.0.20.1+1 (build 17.0.20.1+1, mixed mode, sharing)"
+    ]
+  },
+  "c": {
+    "O2": {
+      "binary": "build/c/matmul.exe",
+      "flags": "-std=c11 -Wall -Wextra -ffp-contract=off -O2",
+      "command": "gcc -std=c11 -Wall -Wextra -ffp-contract=off -O2 -DBUILD_FLAGS=\"-std=c11 -Wall -Wextra -ffp-contract=off -O2\" -o build/c/matmul.exe src/c/matmul.c -lpsapi"
+    },
+    "O0": {
+      "binary": "build/c/matmul_O0.exe",
+      "flags": "-std=c11 -Wall -Wextra -ffp-contract=off -O0",
+      "command": "gcc -std=c11 -Wall -Wextra -ffp-contract=off -O0 -DBUILD_FLAGS=\"-std=c11 -Wall -Wextra -ffp-contract=off -O0\" -o build/c/matmul_O0.exe src/c/matmul.c -lpsapi"
+    },
+    "O3native": {
+      "binary": "build/c/matmul_O3native.exe",
+      "flags": "-std=c11 -Wall -Wextra -ffp-contract=off -O3 -march=native",
+      "command": "gcc -std=c11 -Wall -Wextra -ffp-contract=off -O3 -march=native -DBUILD_FLAGS=\"-std=c11 -Wall -Wextra -ffp-contract=off -O3 -march=native\" -o build/c/matmul_O3native.exe src/c/matmul.c -lpsapi"
+    }
+  },
+  "java_build": {
+    "classpath": "build/java",
+    "command": "javac --release 17 -encoding UTF-8 -Xlint:all -d build/java src/java/MatMul.java",
+    "jvm_flags": "-XX:+UseSerialGC -Xms2g -Xmx2g"
+  }
+}

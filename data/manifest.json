@@ -1,0 +1,220 @@
+{
+  "generator": "CPython random.Random(seed).random() (Mersenne Twister), uniforme en [0, 1)",
+  "dtype": "float64 little-endian",
+  "layout": "row-major, sin cabecera (8*n*n bytes)",
+  "value_range": "[0, 1)",
+  "base_seed": 2026,
+  "seed_rule": "A_n: base_seed*1000003 + 2n ; B_n: A_n + 1",
+  "files": {
+    "10": {
+      "A": {
+        "file": "A_10.bin",
+        "seed": 2026006098,
+        "bytes": 800,
+        "sha256": "b7a9c31abaa57f4760fd98fd04523a4df9956f1792488dddd1c308b4a0cb6e8c"
+      },
+      "B": {
+        "file": "B_10.bin",
+        "seed": 2026006099,
+        "bytes": 800,
+        "sha256": "fecbba877e59b1b997f3d9d34f0cc0bfbdb2daa4c34a98348306957730f67739"
+      }
+    },
+    "25": {
+      "A": {
+        "file": "A_25.bin",
+        "seed": 2026006128,
+        "bytes": 5000,
+        "sha256": "561cb4c1e5f658fc46cd241a6c591cecd827c29e0f4aaeb9e10d718ad96f8003"
+      },
+      "B": {
+        "file": "B_25.bin",
+        "seed": 2026006129,
+        "bytes": 5000,
+        "sha256": "df5824b1833d1f2c38be52bf4e42432c926353ef73a3eaeaec1c5200b9bd4ab5"
+      }
+    },
+    "50": {
+      "A": {
+        "file": "A_50.bin",
+        "seed": 2026006178,
+        "bytes": 20000,
+        "sha256": "45801a4af27069cfec0ebfb363e90df6f6c80f2ed7ba8d5eef1c3e7c356b45c3"
+      },
+      "B": {
+        "file": "B_50.bin",
+        "seed": 2026006179,
+        "bytes": 20000,
+        "sha256": "a6712e7cd8edf6260bf9ecbcb0879e98b20d1e460eab8f13e50ce50d9ddedd8d"
+      }
+    },
+    "100": {
+      "A": {
+        "file": "A_100.bin",
+        "seed": 2026006278,
+        "bytes": 80000,
+        "sha256": "122b94eb496c34824f48a0fcc1bfd144f5caa55287216a2f5119a9218d082332"
+      },
+      "B": {
+        "file": "B_100.bin",
+        "seed": 2026006279,
+        "bytes": 80000,
+        "sha256": "57448211864cfb370122fdfa74a019ea4280e2250ffc6df3dcd755f048faa377"
+      }
+    },
+    "200": {
+      "A": {
+        "file": "A_200.bin",
+        "seed": 2026006478,
+        "bytes": 320000,
+        "sha256": "d4e450c8ed5c26ea88cd2ee406b01b60abf30a0a91726dca952de77fba385635"
+      },
+      "B": {
+        "file": "B_200.bin",
+        "seed": 2026006479,
+        "bytes": 320000,
+        "sha256": "607f003d1255ba8a941dc49913feb6c5d16bda62a6777d7bb089b5b5ad3c28eb"
+      }
+    },
+    "300": {
+      "A": {
+        "file": "A_300.bin",
+        "seed": 2026006678,
+        "bytes": 720000,
+        "sha256": "5d4962d68156eac15e6d791dc335a1e8a7848fface139cf460c3e20790748f86"
+      },
+      "B": {
+        "file": "B_300.bin",
+        "seed": 2026006679,
+        "bytes": 720000,
+        "sha256": "b4d8f0630553fc474eaba49377f8976b33f1d8e8a1dc4b03467eb84bab851c81"
+      }
+    },
+    "400": {
+      "A": {
+        "file": "A_400.bin",
+        "seed": 2026006878,
+        "bytes": 1280000,
+        "sha256": "d3cb415a5c5f670622697cf32e35b7ddc1b0b1cca216898cf4abb48ad1c6f5ab"
+      },
+      "B": {
+        "file": "B_400.bin",
+        "seed": 2026006879,
+        "bytes": 1280000,
+        "sha256": "d46d21c08de48431a7ba100de38e7d1fb0147857e92c1757bc7deee6dff13014"
+      }
+    },
+    "500": {
+      "A": {
+        "file": "A_500.bin",
+        "seed": 2026007078,
+        "bytes": 2000000,
+        "sha256": "e38d87cbe02e99f6e9be96deb55797ddefdbefddadfa1bf717fca33a50716553"
+      },
+      "B": {
+        "file": "B_500.bin",
+        "seed": 2026007079,
+        "bytes": 2000000,
+        "sha256": "41a5b33ed5936d0962c63cbf8bc7c679b9da71a0983b2a1596b53fca7286f2fa"
+      }
+    },
+    "600": {
+      "A": {
+        "file": "A_600.bin",
+        "seed": 2026007278,
+        "bytes": 2880000,
+        "sha256": "dfa7c44760d023423b4326cdd3ce0486db91a99d17755b4b6707be06eedd8361"
+      },
+      "B": {
+        "file": "B_600.bin",
+        "seed": 2026007279,
+        "bytes": 2880000,
+        "sha256": "4cdcd050b9c5b084178af6b6234f9c773a506785ed47c4b7b6f44cd1ffec7f5a"
+      }
+    },
+    "800": {
+      "A": {
+        "file": "A_800.bin",
+        "seed": 2026007678,
+        "bytes": 5120000,
+        "sha256": "15dfc499796c9bb48ae99c124a986c15244242d188394f9e9471d531a0b00df9"
+      },
+      "B": {
+        "file": "B_800.bin",
+        "seed": 2026007679,
+        "bytes": 5120000,
+        "sha256": "fd106ab4bde83ef352be2c71b437d0f397f75afde96d48afeb1e2f724539d461"
+      }
+    },
+    "900": {
+      "A": {
+        "file": "A_900.bin",
+        "seed": 2026007878,
+        "bytes": 6480000,
+        "sha256": "685d7c34badb7742f20ff61cb0b4773509907d2ea07d0ca6f05ded113f1786a1"
+      },
+      "B": {
+        "file": "B_900.bin",
+        "seed": 2026007879,
+        "bytes": 6480000,
+        "sha256": "37d155b96d0be84495bae073f9cf9c31da3bc1f796dec53b54d177bbf8c99b90"
+      }
+    },
+    "1000": {
+      "A": {
+        "file": "A_1000.bin",
+        "seed": 2026008078,
+        "bytes": 8000000,
+        "sha256": "861c355d62a1dd16e1ffb2cb308791d86e337ba61b5edbb1883be698f80c43a1"
+      },
+      "B": {
+        "file": "B_1000.bin",
+        "seed": 2026008079,
+        "bytes": 8000000,
+        "sha256": "7d1b6ae3444fd9f5eb3aa28bc4599cc64cea9d114ef449aafc4b61222ee7fb10"
+      }
+    },
+    "1200": {
+      "A": {
+        "file": "A_1200.bin",
+        "seed": 2026008478,
+        "bytes": 11520000,
+        "sha256": "c40acf68248e2a32a6ee30fded4a56fdbd8e9661388ae022e16e34dc7a429bee"
+      },
+      "B": {
+        "file": "B_1200.bin",
+        "seed": 2026008479,
+        "bytes": 11520000,
+        "sha256": "0f809369fd0c472c38311cd7b5142cc52b87f25ef416faeb1a5f1806ff8b8de3"
+      }
+    },
+    "1500": {
+      "A": {
+        "file": "A_1500.bin",
+        "seed": 2026009078,
+        "bytes": 18000000,
+        "sha256": "fd474ad9b263ed2f3fa057018d47864dc5f0cfad908f98a9aa59bf3099d91137"
+      },
+      "B": {
+        "file": "B_1500.bin",
+        "seed": 2026009079,
+        "bytes": 18000000,
+        "sha256": "02cbceebb006ae5dd7d912daf06250791314da759217e0dc7d44aca0d7ae3afe"
+      }
+    },
+    "2000": {
+      "A": {
+        "file": "A_2000.bin",
+        "seed": 2026010078,
+        "bytes": 32000000,
+        "sha256": "e04c4163606f60ad327d5be4abad3b23ae3d736cf2dbe1edbd4372cd32719a24"
+      },
+      "B": {
+        "file": "B_2000.bin",
+        "seed": 2026010079,
+        "bytes": 32000000,
+        "sha256": "3d5e2a1113fbed0db55e0bf3a9afef061c75120e3aa9afa2afa6e7376202369d"
+      }
+    }
+  }
+}

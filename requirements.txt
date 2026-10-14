@@ -1,0 +1,10 @@
+# Los kernels medidos usan solo la biblioteca estándar de cada lenguaje (Python, Java 17, C11).
+# NumPy: solo como referencia de corrección (tests y verify.py) y para el análisis.
+# matplotlib: solo para las gráficas (scripts/analyze.py).
+# psutil: mejora la información de entorno, la memoria de Python en Windows y el recuento de
+#         hilos del SO de cada worker (run_benchmarks.py). Muy recomendable.
+# markdown: solo para generar el PDF del informe (informe/build_pdf.py).
+numpy>=1.24
+matplotlib>=3.7
+psutil>=5.9
+markdown>=3.5

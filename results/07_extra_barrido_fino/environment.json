@@ -1,0 +1,123 @@
+{
+  "timestamp_utc": "2026-10-14T17:36:39+00:00",
+  "os": {
+    "pretty": "Windows 11 Home 26H2 (build 26300.9711)",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "system": "Windows",
+    "release": "10",
+    "machine": "AMD64"
+  },
+  "cpu": {
+    "model": "AMD Ryzen 7 4800H with Radeon Graphics",
+    "cores_physical": 8,
+    "cores_logical": 16
+  },
+  "ram_total_bytes": 16505966592,
+  "toolchain": {
+    "gcc": "gcc.EXE (GCC) 11.2.0 (x86_64-w64-mingw32)",
+    "c_flags": {
+      "O2": "-std=c11 -Wall -Wextra -ffp-contract=off -O2",
+      "O0": "-std=c11 -Wall -Wextra -ffp-contract=off -O0",
+      "O3native": "-std=c11 -Wall -Wextra -ffp-contract=off -O3 -march=native"
+    },
+    "javac": "javac 17.0.20.1",
+    "java": "openjdk version \"17.0.20.1\" 2026-08-18 | OpenJDK Runtime Environment Temurin-17.0.20.1+1 (build 17.0.20.1+1) | OpenJDK 64-Bit Server VM Temurin-17.0.20.1+1 (build 17.0.20.1+1, mixed mode, sharing)",
+    "jvm_flags": "-XX:+UseSerialGC -Xms2g -Xmx2g"
+  },
+  "python": {
+    "version": "3.11.9",
+    "implementation": "CPython",
+    "compiler": "MSC v.1938 64 bit (AMD64)",
+    "build": [
+      "tags/v3.11.9:de54cf5",
+      "Apr  2 2024 10:12:12"
+    ],
+    "executable": "C:\\Users\\guill\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\\python.exe",
+    "gil_enabled": null
+  },
+  "libraries": {
+    "numpy (solo verificación y análisis)": "2.4.6",
+    "matplotlib (solo gráficas)": "3.11.2",
+    "psutil (opcional)": "7.2.2"
+  },
+  "timer": {
+    "function": "time.perf_counter_ns",
+    "monotonic": true,
+    "resolution_s": 1e-07,
+    "implementation": "QueryPerformanceCounter()"
+  },
+  "thread_env": {
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "MKL_NUM_THREADS": null,
+    "NUMEXPR_NUM_THREADS": null,
+    "VECLIB_MAXIMUM_THREADS": null
+  },
+  "power": {
+    "battery_percent": 95,
+    "power_plugged": true,
+    "cpu_freq_mhz_current": 2900.0,
+    "cpu_freq_mhz_max": 2900.0
+  },
+  "notes": [
+    "Los tres kernels (Python, Java, C) se ejecutan en un solo hilo (threads = 1). La JVM crea además hilos propios (JIT, GC, señales...): su número queda en os_threads_max / jvm_threads del CSV.",
+    "El runner fija OMP/OPENBLAS/MKL_NUM_THREADS=1 en los procesos hijo; NumPy solo se usa para verificar, fuera del cronómetro."
+  ],
+  "campaign": {
+    "configs": {
+      "c": {
+        "language": "c",
+        "variant": "base",
+        "cmd": [
+          "C:\\Users\\guill\\OneDrive - Universidad de Las Palmas de Gran Canaria\\UNI\\BD\\Ind Assi\\practica1\\build\\c\\matmul.exe"
+        ]
+      },
+      "java": {
+        "language": "java",
+        "variant": "base",
+        "cmd": [
+          "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.20.101-hotspot\\bin\\java.EXE",
+          "-XX:+UseSerialGC",
+          "-Xms2g",
+          "-Xmx2g",
+          "-cp",
+          "C:\\Users\\guill\\OneDrive - Universidad de Las Palmas de Gran Canaria\\UNI\\BD\\Ind Assi\\practica1\\build\\java",
+          "MatMul"
+        ]
+      }
+    },
+    "sizes": [
+      400,
+      450,
+      500,
+      512,
+      550,
+      600,
+      650,
+      700,
+      750,
+      800,
+      850,
+      900,
+      950,
+      1000,
+      1024,
+      1050,
+      1100,
+      1150,
+      1200,
+      1250,
+      1300,
+      1350,
+      1400,
+      1450,
+      1500,
+      1536,
+      1550,
+      1600
+    ],
+    "reps": 3,
+    "timeout_s": 300.0,
+    "mem_budget_mb": 4096
+  }
+}
