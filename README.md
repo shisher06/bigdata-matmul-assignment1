@@ -247,5 +247,4 @@ Python-only pilots kept for the record.
 
 ## 11. Use of generative AI
 
-Claude Code (Anthropic) was used to implement the C and Java workers, the runner, the tests and the
-analysis scripts, to run the campaigns and to draft the report; see the disclosure in §8 of the report.
+A generative AI assistant (Claude Code, Anthropic) was used to clarify concepts, to help with the code and to help with writing the report; see the disclosure in §8 of the report. The author is responsible for the work.

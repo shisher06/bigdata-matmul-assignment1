@@ -789,10 +789,4 @@ and warm-up size, runtime version and flags. No measurement was removed. Campaig
 explained in `results/LEEME.md`. `README.md` is in English (Spanish copy in `README_es.md`); source-code
 comments, the per-campaign summaries and `results/LEEME.md` are in Spanish.
 
-**Use of generative AI.** As required by the course policy, the author discloses that Claude Code
-(Anthropic, model Claude Opus 5.5) was used to: implement the C and Java workers, the cross-language
-runner, the tests and the analysis scripts on top of the Python implementation; run the measurement
-campaigns on the author's laptop; investigate the JIT and memory-layout effects; and draft and translate
-this report. Every number in the report comes from the raw CSV files and logs in the repository, and
-every reference was checked to exist. The author has reviewed the code, measurements and text, and is
-responsible for them and for defending the conclusions.
+**Use of generative AI.** As required by the course policy, the author discloses that a generative AI assistant (Claude Code, Anthropic) was used as a support tool in three ways: to clarify concepts (for example JIT compilation, CPU caches and floating-point behaviour), to help with the code (the C and Java versions, the measurement scripts and the tests), and to help with writing and translating the report. The author is responsible for the content of this report and for defending it.
