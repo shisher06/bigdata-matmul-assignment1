@@ -1,3 +1,0 @@
-language,variant,n,reps_ok,reps_planned,median_s,q1_s,q3_s,iqr_s,rel_iqr_pct,min_s,max_s,ns_per_inner_iter,proc_peak_mb,inproc_metric,inproc_peak_mb,inproc_above_baseline_mb,array_model_mb,object_model_mb,batch,warmup,os_threads_max,jvm_threads,gc_in_timed,max_rel_err,c_sha256,runtime,flags
-python,base,900,5,5,69.3574906,69.3336626,70.3705476,1.036884999999998,1.4949863252405473,69.0789887,70.5852211,95.14059067215364,nan,unavailable,nan,nan,19.44,77.934696,1,1×64,nan,nan,0,3.8942628340479204e-15,,3.13.5,
-python,base,1000,5,5,104.3668175,103.8428058,104.5812779,0.7384721000000098,0.7075736500253156,102.7920278,137.7699139,104.3668175,nan,unavailable,nan,nan,24.0,96.194568,1,1×64,nan,nan,0,4.194664935840819e-15,,3.13.5,

@@ -57,7 +57,7 @@ STYLE = {
     ("c", "O3native"): {"color": "#e87ba4", "marker": "D", "label": "C (-O3 -march=native)"},
     ("java", "Xint"): {"color": "#008300", "marker": "P", "label": "Java (-Xint, no JIT)"},
     ("java", "warmup5x256"): {"color": "#6250d6", "marker": "X",
-                              "label": "Java (warm-up 5×256³)"},
+                              "label": "Java (warm-up 5 x 256x256)"},
 }
 ORDER = list(STYLE)
 FALLBACK = {"color": "#e34948", "marker": "*"}
@@ -156,7 +156,7 @@ def summarise(rows: list[dict]) -> tuple[list[dict], dict]:
                 "array_model_mb": (ok[0]["array_model_bytes"] or float("nan")) / 1e6,
                 "object_model_mb": _median(r["object_model_bytes"] for r in ok) / 1e6,
                 "batch": int(ok[-1]["batch"] or 1),
-                "warmup": f"{int(ok[0]['warmup_runs'] or 0)}×{int(ok[0]['warmup_n'] or 0)}",
+                "warmup": f"{int(ok[0]['warmup_runs'] or 0)}x{int(ok[0]['warmup_n'] or 0)}",
                 "os_threads_max": max((r["os_threads_max"] or 0) for r in ok) or float("nan"),
                 "jvm_threads": max((r["jvm_threads"] or 0) for r in ok) or float("nan"),
                 "gc_in_timed": sum((r["gc_count_timed"] or 0) for r in ok),
@@ -182,14 +182,14 @@ def loglog_fit(points):
 
 def fmt(x, digits=4) -> str:
     if x is None or (isinstance(x, float) and np.isnan(x)):
-        return "—"
+        return "-"
     return f"{x:.{digits}g}"
 
 
 def fmt_s(x) -> str:
     """Tiempo legible con unidad."""
     if x is None or np.isnan(x):
-        return "—"
+        return "-"
     if x < 1e-3:
         return f"{x * 1e6:.3g} µs"
     if x < 1:
@@ -220,13 +220,13 @@ def limits_lines(key, summary, failures, rows) -> list[str]:
     bad = failures.get(key, [])
     bad_n = sorted({int(r["n"]) for r in bad})
     ok_n = [s["n"] for s in sel if not bad_n or s["n"] < bad_n[0]]
-    lines = [f"- Mayor tamaño probado dentro de los límites: **{max(ok_n) if ok_n else '—'}**",
-             f"- Mayor tamaño intentado: **{max(all_n) if all_n else '—'}**"]
+    lines = [f"- Mayor tamaño probado dentro de los límites: **{max(ok_n) if ok_n else '-'}**",
+             f"- Mayor tamaño intentado: **{max(all_n) if all_n else '-'}**"]
     for r in bad:
         lines.append(
             f"- n = {int(r['n'])}, repetición {int(r['repetition'] or 0)}: **{r['status']}** "
             f"({r.get('note') or ''}); límite de tiempo {r.get('timeout_s')} s, presupuesto de "
-            f"memoria {r.get('mem_budget_mb') or r.get('mem_limit_mb') or '—'} MB. Sin tiempo asignado.")
+            f"memoria {r.get('mem_budget_mb') or r.get('mem_limit_mb') or '-'} MB. Sin tiempo asignado.")
     if not bad:
         lines.append("- Sin timeouts ni fallos de memoria.")
     return lines
@@ -236,7 +236,7 @@ def write_summary_md(summary, failures, rows, fit_min_n, path: Path) -> str:
     keys = sort_keys({(s["language"], s["variant"]) for s in summary})
     L = ["# Resumen de resultados", ""]
     L.append("Estadísticos sobre las ejecuciones con `status = OK`: mediana y rango intercuartílico "
-             "(IQR = Q3 − Q1). Tiempos por multiplicación. Memoria en MB decimales (10⁶ B). "
+             "(IQR = Q3 - Q1). Tiempos por multiplicación. Memoria en MB decimales (10⁶ B). "
              "Cada ejecución es un proceso nuevo.\n")
 
     # 1) Comparación entre lenguajes (configuraciones principales)
@@ -253,13 +253,13 @@ def write_summary_md(summary, failures, rows, fit_min_n, path: Path) -> str:
         L.append(head + " |")
         L.append("|---:|" + "---:|" * (len(base_keys) + len(ratios)))
         for n in ns:
-            cells = [fmt_s(by[k][n]["median_s"]) if n in by[k] else "—" for k in base_keys]
+            cells = [fmt_s(by[k][n]["median_s"]) if n in by[k] else "-" for k in base_keys]
             for k in ratios:
                 c = by[("c", "base")].get(n)
-                cells.append(f"{by[k][n]['median_s'] / c['median_s']:.3g}×"
-                             if n in by[k] and c else "—")
+                cells.append(f"{by[k][n]['median_s'] / c['median_s']:.3g}x"
+                             if n in by[k] and c else "-")
             L.append(f"| {n} | " + " | ".join(cells) + " |")
-        L += ["", "«—» = sin medida válida para ese tamaño (ver *Límites*).", ""]
+        L += ["", "«-» = sin medida válida para ese tamaño (ver *Límites*).", ""]
 
         L += ["## Memoria: pico del working set del proceso completo (MB)", ""]
         L.append("Medido por el runner con `GetProcessMemoryInfo` sobre el proceso hijo al terminar "
@@ -268,7 +268,7 @@ def write_summary_md(summary, failures, rows, fit_min_n, path: Path) -> str:
                  " | modelo 3·8n² |")
         L.append("|---:|" + "---:|" * (len(base_keys) + 1))
         for n in ns:
-            cells = [fmt(by[k][n]["proc_peak_mb"], 4) if n in by[k] else "—" for k in base_keys]
+            cells = [fmt(by[k][n]["proc_peak_mb"], 4) if n in by[k] else "-" for k in base_keys]
             model = next((by[k][n]["array_model_mb"] for k in base_keys if n in by[k]), float("nan"))
             L.append(f"| {n} | " + " | ".join(cells) + f" | {fmt(model, 4)} |")
         L.append("")
@@ -281,7 +281,7 @@ def write_summary_md(summary, failures, rows, fit_min_n, path: Path) -> str:
             if len(shas) >= 2:
                 (same if len(set(shas.values())) == 1 else diff).append(n)
         L.append(f"- Matriz C idéntica bit a bit (mismo SHA-256 del volcado) en todos los lenguajes "
-                 f"medidos: n = {', '.join(map(str, same)) or '—'}.")
+                 f"medidos: n = {', '.join(map(str, same)) or '-'}.")
         if diff:
             L.append(f"- C distinta entre lenguajes en n = {', '.join(map(str, diff))}.")
         errs = [s["max_rel_err"] for s in summary if not np.isnan(s["max_rel_err"])]
@@ -295,43 +295,43 @@ def write_summary_md(summary, failures, rows, fit_min_n, path: Path) -> str:
     for key in keys:
         sel = series(summary, key)
         st = style_for(key)
-        L += [f"## {st['label']} · `{key[0]}/{key[1]}`", ""]
+        L += [f"## {st['label']} - `{key[0]}/{key[1]}`", ""]
         if sel:
-            L.append(f"Runtime: {sel[0]['runtime']}; flags: `{sel[0]['flags'] or '—'}`; "
+            L.append(f"Runtime: {sel[0]['runtime']}; flags: `{sel[0]['flags'] or '-'}`; "
                      f"métrica interna de memoria: `{sel[0]['inproc_metric']}`. «calent.» = "
-                     f"ejecuciones × tamaño del calentamiento (incluye la calibración del lote).\n")
+                     f"ejecuciones x tamaño del calentamiento (incluye la calibración del lote).\n")
         L.append("| n | reps | mediana | Q1 | Q3 | IQR/med (%) | ns/n³ | lote | calent. | "
-                 "pico proceso (MB) | interno (MB) | interno − base (MB) | modelo almac. (MB) | "
+                 "pico proceso (MB) | interno (MB) | interno - base (MB) | modelo almac. (MB) | "
                  "hilos SO |")
         L.append("|---:|:---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
         for s in sel:
             reps = f"{s['reps_ok']}" + (f"/{s['reps_planned']}" if s["reps_ok"] != s["reps_planned"] else "")
             if s["reps_ok"] < 5:
-                reps += " ⚠"
+                reps += " (!)"
             L.append(
                 f"| {s['n']} | {reps} | {fmt_s(s['median_s'])} | {fmt_s(s['q1_s'])} | "
                 f"{fmt_s(s['q3_s'])} | {fmt(s['rel_iqr_pct'], 3)} | {fmt(s['ns_per_inner_iter'], 4)} | "
                 f"{s['batch']} | {s['warmup']} | {fmt(s['proc_peak_mb'], 4)} | {fmt(s['inproc_peak_mb'], 4)} | "
                 f"{fmt(s['inproc_above_baseline_mb'], 4)} | {fmt(s['object_model_mb'], 4)} | "
                 f"{fmt(s['os_threads_max'], 3)} |")
-        L += ["", "⚠ = menos de 5 repeticiones (justificado por coste; ver el informe).", ""]
+        L += ["", "(!) = menos de 5 repeticiones (justificado por coste; ver el informe).", ""]
         L += ["### Límites", "", *limits_lines(key, summary, failures, rows), ""]
 
         L += ["### Crecimiento frente al modelo cúbico", ""]
         pts = [(s["n"], s["median_s"]) for s in sel if s["n"] >= fit_min_n]
         fit = loglog_fit(pts)
         if fit is None:
-            L.append(f"- Menos de 2 tamaños con n ≥ {fit_min_n}: no se puede ajustar la pendiente.")
+            L.append(f"- Menos de 2 tamaños con n >= {fit_min_n}: no se puede ajustar la pendiente.")
         else:
             slope, se = fit
-            se_txt = f" ± {se:.3f} (error estándar)" if se is not None else ""
-            L.append(f"- Pendiente log-log de la mediana (n ≥ {fit_min_n}, {len(pts)} tamaños): "
+            se_txt = f" +- {se:.3f} (error estándar)" if se is not None else ""
+            L.append(f"- Pendiente log-log de la mediana (n >= {fit_min_n}, {len(pts)} tamaños): "
                      f"**{slope:.3f}**{se_txt}; el modelo algorítmico predice 3.")
         if len(sel) >= 2:
             local = []
             for a, b in zip(sel, sel[1:]):
                 e = np.log(b["median_s"] / a["median_s"]) / np.log(b["n"] / a["n"])
-                local.append(f"{a['n']}→{b['n']}: {e:.2f}")
+                local.append(f"{a['n']} a {b['n']}: {e:.2f}")
             L.append("- Exponente local entre tamaños consecutivos: " + "; ".join(local) + ".")
         L.append("")
     text = "\n".join(L)
@@ -411,7 +411,7 @@ def plot_all(summary: list[dict], out_dir: Path) -> list[Path]:
 
     # 1) tiempo vs n (log-log) con guías ∝ n³
     fig, ax = _new_fig()
-    _prep_axes(ax, "n (matrix side, n × n)", "time per multiplication (s, log scale)",
+    _prep_axes(ax, "n (matrix side, n x n)", "time per multiplication (s, log scale)",
                "Runtime vs. matrix size (median; bars = IQR)")
     guide_done = False
     for key in keys:
@@ -426,7 +426,7 @@ def plot_all(summary: list[dict], out_dir: Path) -> list[Path]:
             xs = np.array([max(min(n), 50), max(n)], dtype=float)
             ax.plot(xs, anchor["median_s"] * (xs / anchor["n"]) ** 3, linestyle=(0, (4, 3)),
                     color=st["color"], alpha=0.45, linewidth=1.0, zorder=2,
-                    label=None if guide_done else "∝ n³ anchored at n = 100 (same colour)")
+                    label=None if guide_done else "n³ trend anchored at n = 100 (same colour)")
             guide_done = True
     ax.set_xscale("log")
     ax.set_yscale("log")
@@ -455,7 +455,7 @@ def plot_all(summary: list[dict], out_dir: Path) -> list[Path]:
     others = [k for k in keys if k != ("c", "base")]
     if c and others:
         fig, ax = _new_fig()
-        _prep_axes(ax, "n (matrix side, n × n)", "time / time of C -O2 (log scale)",
+        _prep_axes(ax, "n (matrix side, n x n)", "time / time of C -O2 (log scale)",
                    "Slowdown relative to C (-O2): same algorithm, same inputs")
         ends = []
         for key in others:
@@ -465,7 +465,7 @@ def plot_all(summary: list[dict], out_dir: Path) -> list[Path]:
             if pts:
                 ax.plot(*zip(*pts), color=st["color"], marker=st["marker"], markersize=4.5,
                         linewidth=1.6, label=f"{st['label']} / C")
-                ends.append((pts[-1][0], pts[-1][1], f"{pts[-1][1]:.3g}×"))
+                ends.append((pts[-1][0], pts[-1][1], f"{pts[-1][1]:.3g}x"))
         ax.axhline(1.0, color=INK_2, linewidth=0.8)
         ax.set_xscale("log")
         ax.set_yscale("log")
@@ -478,10 +478,10 @@ def plot_all(summary: list[dict], out_dir: Path) -> list[Path]:
 
     # 4) memoria: (a) pico del proceso completo, (b) memoria añadida vs modelos de almacenamiento
     fig, (ax1, ax2) = _new_fig(w=11.0, h=4.4, ncols=2)
-    _prep_axes(ax1, "n (matrix side, n × n)", "MB (10⁶ B, log scale)",
+    _prep_axes(ax1, "n (matrix side, n x n)", "MB (10^6 bytes, log scale)",
                "(a) Peak working set of the whole process")
-    _prep_axes(ax2, "n (matrix side, n × n)", "MB (10⁶ B, log scale)",
-               "(b) Memory added inside the process (peak − start) and models")
+    _prep_axes(ax2, "n (matrix side, n x n)", "MB (10^6 bytes, log scale)",
+               "(b) Memory added inside the process (peak - start) and models")
     model_done = False
     for key in keys:
         st = style_for(key)
@@ -491,20 +491,20 @@ def plot_all(summary: list[dict], out_dir: Path) -> list[Path]:
         n = [r["n"] for r in s]
         ax1.plot(n, [r["proc_peak_mb"] for r in s], color=st["color"], marker=st["marker"],
                  markersize=4.5, linewidth=1.6, label=st["label"])
-        # métrica interna: working set (Python, C) o heap usado (Java), pico − antes de cargar datos
+        # métrica interna: working set (Python, C) o heap usado (Java), pico - antes de cargar datos
         what = "heap" if s[0]["inproc_metric"].startswith("heap") else "working set"
         added = [(r["n"], r["inproc_above_baseline_mb"]) for r in s
                  if r["inproc_above_baseline_mb"] > 0.005]
         if added:
             ax2.plot(*zip(*added), color=st["color"], marker=st["marker"], markersize=4.5,
-                     linewidth=1.6, label=f"{st['label']}: {what}, peak − start")
+                     linewidth=1.6, label=f"{st['label']}: {what}, peak - start")
         model = [(r["n"], r["object_model_mb"]) for r in s if r["object_model_mb"] > 0]
         if model and key[0] != "c":
             ax2.plot(*zip(*model), color=st["color"], linestyle=(0, (1, 2)), linewidth=1.4,
                      label=f"{st['label']}: model of its data structure (A, B, C)")
         if not model_done:
             ax2.plot(n, [r["array_model_mb"] for r in s], color=INK_2, linestyle=(0, (4, 3)),
-                     linewidth=1.0, label="3·8·n² B (= C data structure)")
+                     linewidth=1.0, label="3 x 8 x n² bytes (= C data structure)")
             model_done = True
     for ax in (ax1, ax2):
         ax.set_xscale("log")
@@ -516,7 +516,7 @@ def plot_all(summary: list[dict], out_dir: Path) -> list[Path]:
 
     # 5) variabilidad
     fig, ax = _new_fig(h=3.8)
-    _prep_axes(ax, "n (matrix side, n × n)", "IQR / median (%)",
+    _prep_axes(ax, "n (matrix side, n x n)", "IQR / median (%)",
                "Variability across repetitions (each repetition is a fresh process)")
     for key in keys:
         st, s = style_for(key), series(summary, key)

@@ -57,7 +57,7 @@ th, td { border-bottom: 1px solid var(--rule); padding: .22rem .4rem; vertical-a
 th { text-align: left; color: var(--ink-2); font-weight: 600; border-bottom: 1.5px solid var(--ink-2); }
 td:not(:first-child) { text-align: right; }
 table.left td { text-align: left; }
-img { max-width: 100%; display: block; margin: .4rem auto .2rem; }
+img { max-width: 82%; display: block; margin: .4rem auto .2rem; }
 figure { margin: .8rem 0 1rem; break-inside: avoid; }
 figcaption { font-size: .85rem; color: var(--ink-2); text-align: center; }
 blockquote { margin: .6rem 0; padding: .4rem .8rem; border-left: 3px solid var(--accent);
